@@ -1,0 +1,133 @@
+<div class="borders">
+  <!-- <div class="sensLum" *ngFor="let r of realTimeExt | async">
+    <p *ngIf="r.luminosity<100" class="title">Station.Ino <img class="circle" style="filter: grayscale(100%);"
+        src="\assets\image\circle.png" alt="circle">
+    <p *ngIf="r.luminosity>=100 && r.luminosity<500" class="title">Station.Ino <img class="circle"
+        style="filter: grayscale(60%);" src="\assets\image\circle.png" alt="circle"></p>
+    <p *ngIf="r.luminosity>=500 && r.luminosity<1000" class="title">Station.Ino <img class="circle"
+        style="filter: grayscale(40%);" src="\assets\image\circle.png" alt="circle"></p>
+    <p *ngIf="r.luminosity>=1000" class="title">Station.Ino <img class="circle" style="filter: grayscale(0%);"
+        src="\assets\image\circle.png" alt="circle"></p>
+  </div> -->
+
+  <div class="sensLum" *ngFor="let r of realTimeExt | async">
+    <p class="title">Station.Ino <img class="circle" id="circle" src="\assets\image\circle.png" alt="circle"></p>
+    {{changeGrey(r.luminosity)}}
+  </div>
+
+
+
+  <div class="overflow-auto">
+    <p class="subtitle">Internal Real Time Data </p>
+    <div class="card-body">
+      <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+        <div class="container" style="padding: 5%;">
+          <div class="row">
+            <div class="col">
+              <h5 style="text-align: center;">Temperature <br> (Celsius)</h5>
+              <h5 *ngFor="let r of realTime | async" style="text-align: center;"> {{r.temperature}}C <img class="icons"
+                  src="\assets\image\temperature.png" alt="temperature"></h5>
+            </div>
+            <div class="col-5">
+              <h5 style="text-align: center;">Umidity <br> (percentage)</h5>
+              <h5 *ngFor="let r of realTime | async" style="text-align: center;"> {{r.humidity}}% <img class="icons"
+                  src="\assets\image\water.png" alt="umidity"></h5>
+            </div>
+          </div>
+        </div>
+      </table>
+    </div>
+  </div>
+
+
+
+
+  <div class="overflow-auto">
+    <p class="subtitle">External Real Time Data </p>
+    <div class="card-body">
+      <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+        <div class="container" style="padding: 5%;">
+          <div class="row">
+            <div class="col">
+              <h5 style="text-align: center;">Temperature <br> (Celsius)</h5>
+              <h5 *ngFor="let r of realTimeExt | async" style="text-align: center;"> {{r.extTemp}}C <img class="icons"
+                  src="\assets\image\temperature.png" alt="temperature"></h5>
+            </div>
+            <div class="col-5">
+              <h5 style="text-align: center;">Umidity <br> (percentage)</h5>
+              <h5 *ngFor="let r of realTimeExt | async" style="text-align: center;"> {{r.extHum}}% <img class="icons"
+                  src="\assets\image\water.png" alt="umidity"></h5>
+            </div>
+            <div class="col">
+              <h5 style="text-align: center;">Luminosity <br> (Lumens)</h5>
+              <h5 *ngFor="let r of realTimeExt | async" style="text-align: center;"> {{r.luminosity}} Lumens <img
+                  class="icons" src="\assets\image\light.png" alt="light"></h5>
+            </div>
+          </div>
+        </div>
+      </table>
+    </div>
+  </div>
+
+
+  <div style="padding:5%">
+
+    <p class="title">Briefly Statistics </p>
+
+    <h5 style="margin-bottom: 5%;">If you want see beautiful charts of all statistics go to <a
+        routerLink="/analytics">Analytics Page</a></h5>
+
+    <div class="overflow-auto">
+      <div class="card-body">
+        <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+          <div class="container" style="padding: 5%;">
+
+            <div *ngFor="let minT of minTemp | async">
+              <div *ngFor="let maxT of maxTemp | async">
+                <div *ngFor="let minExtT of minExtTemp | async">
+                  <div *ngFor="let maxExtT of maxExtTemp | async">
+
+                    <div *ngFor="let minH of minHum | async">
+                      <div *ngFor="let maxH of maxHum | async">
+                        <div *ngFor="let minExtH of minExtHum | async">
+                          <div *ngFor="let maxExtH of maxExtHum | async">
+                            <div *ngFor="let minExtL of minExtLum | async">
+                              <div *ngFor="let maxExtL of maxExtLum | async">
+
+                                <h5>
+                                  <b style="color: red;">Internal temperature</b>: <br> <i style="margin-left: 5%;">
+                                    min:
+                                    {{minT.temperature}}C </i> <br> <i style="margin-left: 5%;"> max:
+                                    {{maxT.temperature}}C
+                                  </i><br>
+                                  <b style="color: red;">External temperature</b>: <br> <i style="margin-left: 5%;">
+                                    min:
+                                    {{minExtT.extTemp}}C </i> <br> <i style="margin-left: 5%;"> max:
+                                    {{maxExtT.extTemp}}C</i>
+                                  <br>
+                                  <b style="color: red;">Internal humidity</b>: <br> <i style="margin-left: 5%;"> min:
+                                    {{minH.humidity}}% </i> <br> <i style="margin-left: 5%;"> max: {{maxH.humidity}}%
+                                  </i><br>
+                                  <b style="color: red;">External humidity</b>: <br> <i style="margin-left: 5%;"> min:
+                                    {{minExtH.extHum}}% </i> <br> <i style="margin-left: 5%;"> max: {{maxExtH.extHum}}%
+                                  </i><br>
+                                  <b style="color: red;">Luminosity</b>: <br> <i style="margin-left: 5%;"> min:
+                                    {{minExtL.luminosity}} Lumens </i> <br> <i style="margin-left: 5%;"> max:
+                                    {{maxExtL.luminosity}} Lumens </i><br>
+                                </h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

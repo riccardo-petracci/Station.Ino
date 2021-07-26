@@ -1,0 +1,86 @@
+<div class="borders">
+
+    <p class="title">Gateway Information</p>
+    <img class="gateway" src="\assets\image\gateway.png" alt="gateway">
+    <div *ngFor="let d of device | async" style="margin-left:5%;">
+
+        <p class="a"><i> Service email</i>: {{d.service_email}} </p>
+        <p><i> Device</i>: {{d.device}} </p>
+        <p> <i> Indirizzo IP</i>: {{d.IP_Address}}</p>
+
+        <div class="overflow-auto">
+            <p class="title">Hardware Detail</p>
+            <div class="card-body">
+                <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+                    <div class="container" style="padding: 5%;">
+                        <p class="title">CPU</p>
+                        <p> Temperatura CPU: {{d.CPU_Temp}} C
+                            <img class="hardware" *ngIf="d.CPU_Temp>=70" style="background-color: red;"
+                                src="\assets\image\CPU.png" alt="CPU">
+                            <img class="hardware" *ngIf="d.CPU_Temp>=60 && d.CPU_Temp<70"
+                                style="background-color: orange;" src="\assets\image\CPU.png" alt="CPU">
+                            <img class="hardware" *ngIf="d.CPU_Temp<60" style="background-color: green;"
+                                src="\assets\image\CPU.png" alt="CPU">
+                        </p>
+                    </div>
+                </table>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+                    <div class="container" style="padding: 5%;">
+                        <p class="title">RAM</p>
+                        <p>
+                            Total RAM: {{d.Ram_tot}} MB<br>
+                            Used RAM: {{d.Ram_used}} MB
+                            <img class="hardware" *ngIf="(d.Ram_used/d.Ram_tot*100)>=70" style="background-color: red;"
+                                src="\assets\image\RAM.png" alt="RAM">
+                            <img class="hardware"
+                                *ngIf="(d.Ram_used*100/d.Ram_tot)>=40 && (d.Ram_used*100/d.Ram_tot)<70"
+                                style="background-color: orange;" src="\assets\image\RAM.png" alt="RAM">
+                            <img class="hardware" *ngIf="(d.Ram_used*100/d.Ram_tot)<40" style="background-color: green;"
+                                src="\assets\image\RAM.png" alt="RAM">
+                            <br>
+                            Remaining RAM: {{d.Ram_tot-d.Ram_used}} MB<br>
+                        </p>
+
+                        <div class="chart-wrapper">
+                            <canvas baseChart [datasets]="pieChartData" [labels]="pieChartLabels"
+                                [options]="pieChartOptions" [colors]="pieChartColors" [legend]="pieChartLegend"
+                                [chartType]="pieChartType" [plugins]="pieChartPlugins">
+                            </canvas>
+                        </div>
+                    </div>
+                </table>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered table-striped" style="box-shadow: 15px 15px 10px #dedede;">
+                    <div class="container" style="padding: 5%;">
+                        <p class="title">DISK</p>
+                        <p>
+                            Space of disk: {{d.Disk_tot}} MB<br>
+                            Used space: {{d.Disk_used}} MB
+                            <img class="hardware" *ngIf="(d.Disk_used/d.Disk_tot*100)>=70"
+                                style="background-color: red;" src="\assets\image\DISK.png" alt="DISK">
+                            <img class="hardware"
+                                *ngIf="(d.Disk_used*100/d.Disk_tot)>=40 && (d.Disk_used*100/d.Disk_tot)<70"
+                                style="background-color: orange;" src="\assets\image\DISK.png" alt="DISK">
+                            <img class="hardware" *ngIf="(d.Disk_used*100/d.Disk_tot)<40"
+                                style="background-color: green;" src="\assets\image\DISK.png" alt="DISK">
+                            <br>
+                            Remaining space: {{d.Disk_tot-d.Disk_used}} MB <br>
+                        </p>
+
+                        <div class="chart-wrapper">
+                            <canvas baseChart [datasets]="pie2ChartData" [labels]="pie2ChartLabels"
+                                [options]="pie2ChartOptions" [colors]="pie2ChartColors" [legend]="pie2ChartLegend"
+                                [chartType]="pie2ChartType" [plugins]="pie2ChartPlugins">
+                            </canvas>
+                        </div>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+Station.Ino/front-end/src/environments/environment.ts
+Station.Ino/front-end/src/environments/environment.prod.ts
+Station.Ino/Gateway/config.json
+Station.Ino/Gateway/config.py
